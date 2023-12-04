@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core'
+import { ApiService } from 'src/app/services/api.service'
+
 @Component({
   selector: 'app-console-logs',
   templateUrl: './console-logs.component.html',
-  styleUrls: ['./console-logs.component.scss']
+  styleUrls: ['./console-logs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsoleLogsComponent implements OnInit {
-  messages = [];
+  @Input() messages: string[] = []
 
-  constructor() {}
-
-  ngOnInit(): void {
+  constructor(
+    private readonly apiService: ApiService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.apiService.logs$.subscribe(message => {
+      this.messages = [...this.messages, message]
+      this.cdr.detectChanges()
+    })
   }
 
+  ngOnInit() {}
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { ApiService } from 'src/app/services/api.service'
 
 @Component({
   selector: 'app-canvas',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements OnInit {
+  constructor(private readonly apiService: ApiService) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  syncApiRequest() {
+    this.apiService.syncApiRequest()
   }
 
+  loading = false
+  async asyncApiRequest() {
+    this.loading = true
+    await this.apiService.asyncApiRequest()
+    this.loading = false
+  }
 }
