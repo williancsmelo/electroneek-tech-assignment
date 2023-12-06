@@ -3,8 +3,18 @@
   height: 100vh;
   padding: 5px;
 
+  mat-card-subtitle {
+    margin-block: 5px;
+    font-size: 16px;
+  }
+
   mat-card {
     width: 82%;
     height: 96.4vh;
+  }
+
+  li {
+    list-style-type: none;
+    margin-block: 5px;
   }
 }

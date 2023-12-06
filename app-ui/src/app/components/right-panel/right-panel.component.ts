@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { WebSocketService } from 'src/app/services/web-socket.service'
 
 @Component({
   selector: 'app-right-panel',
@@ -6,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./right-panel.component.scss']
 })
 export class RightPanelComponent implements OnInit {
+  constructor(readonly webSocketService: WebSocketService) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

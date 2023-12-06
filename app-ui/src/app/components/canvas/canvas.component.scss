@@ -3,8 +3,30 @@
   height: 70vh;
   padding: 5px;
 
-  mat-card {
+  & > mat-card {
     width: 96.4%;
     height: 66vh;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  section {
+    @extend .col;
+    button {
+      margin: 5px;
+    }
+
+    mat-card {
+      margin-block: 10px;
+    }
   }
 }

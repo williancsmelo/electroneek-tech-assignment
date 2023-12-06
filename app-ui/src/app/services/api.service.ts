@@ -12,17 +12,10 @@ export class ApiService {
   constructor(private readonly http: HttpClient) {}
 
   private readonly log = new Subject<string>()
-  get logs$() {
-    return this.log.asObservable()
-  }
   private createLog(message: string) {
     const prefix = new Date().toTimeString().split(' ').shift()
     this.log.next(`(${prefix}) ${message}`)
   }
-  private generateRequestId() {
-    return uuid.v4()
-  }
-
   private apiRequest(requestId: string) {
     return this.http
       .get<ApiRequestDetails>(`/request-details/${requestId}`)
@@ -39,9 +32,13 @@ export class ApiService {
         })
       )
   }
+  get log$() {
+    return this.log.asObservable()
+  }
+
   syncApiRequest() {
     const prefix = 'Sync API Request:'
-    const requestId = this.generateRequestId()
+    const requestId = uuid.v4()
     this.createLog(`${prefix} [Start] ${requestId}`)
     this.apiRequest(requestId).subscribe(message => {
       this.createLog(`${prefix} [End] ${message}`)
@@ -50,7 +47,7 @@ export class ApiService {
 
   async asyncApiRequest() {
     const prefix = 'Async API Request:'
-    const requestId = this.generateRequestId()
+    const requestId = uuid.v4()
     this.createLog(`${prefix} [Start] ${requestId}`)
     const message = await this.apiRequest(requestId).toPromise()
     this.createLog(`${prefix} [End] ${message}`)

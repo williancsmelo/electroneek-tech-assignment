@@ -18,6 +18,10 @@ import { MatButtonModule } from '@angular/material/button'
 import { APIInterceptor } from './services/http-interceptor'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatIconModule } from '@angular/material/icon'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { provideAnimations } from '@angular/platform-browser/animations'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -38,14 +42,19 @@ import { MatIconModule } from '@angular/material/icon'
     HttpClientModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
       multi: true
-    }
+    },
+    provideAnimations()
   ],
   bootstrap: [AppComponent]
 })

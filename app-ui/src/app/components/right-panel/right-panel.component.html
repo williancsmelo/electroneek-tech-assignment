@@ -2,8 +2,18 @@
   <mat-card>
     <mat-card-title>Right Panel</mat-card-title>
     <mat-divider inset></mat-divider>
-    <mat-card-subtitle>
-
-    </mat-card-subtitle>
+    <mat-card-subtitle> Events </mat-card-subtitle>
+    <mat-card-content>
+      <li *ngFor="let event of webSocketService.events$ | async">
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="webSocketService.removeListener(event)"
+        >
+          {{ event }}
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    </mat-card-content>
   </mat-card>
 </div>

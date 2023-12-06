@@ -2,21 +2,76 @@
   <mat-card>
     <mat-card-title>Canvas</mat-card-title>
     <mat-divider inset></mat-divider>
-    <mat-card-content>
-      <button mat-raised-button (click)="syncApiRequest()" color="primary">
-        Sync API Request
-      </button>
-      <button
-        mat-raised-button
-        (click)="asyncApiRequest()"
-        [disabled]="loading"
-        color="primary"
-      >
-        Async API Request
-        <mat-icon *ngIf="loading">
-          <mat-spinner color="accent" diameter="20"> </mat-spinner>
-        </mat-icon>
-      </button>
+    <mat-card-content class="row">
+      <section id="api-panel">
+        <button mat-raised-button (click)="syncApiRequest()" color="primary">
+          Sync API Request
+        </button>
+        <button
+          mat-raised-button
+          (click)="asyncApiRequest()"
+          [disabled]="loading"
+          color="primary"
+        >
+          Async API Request
+          <mat-icon *ngIf="loading">
+            <mat-spinner color="accent" diameter="20"> </mat-spinner>
+          </mat-icon>
+        </button>
+      </section>
+
+      <section id="ws-panel">
+        <button
+          mat-raised-button
+          (click)="webSocketService.toggleConnection()"
+          color="primary"
+        >
+          <ng-template [ngIf]="!webSocketService.isConnected"
+            >Connect</ng-template
+          >
+          <ng-template [ngIf]="webSocketService.isConnected"
+            >Disconnect</ng-template
+          >
+          Web Socket
+        </button>
+        <mat-card>
+          <mat-card-subtitle>Add Event Listener</mat-card-subtitle>
+          <mat-card-content class="row">
+            <form [formGroup]="addEventForm" (ngSubmit)="addListener()">
+              <mat-form-field appearance="fill">
+                <mat-label>Event name</mat-label>
+                <input matInput formControlName="eventName" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">
+                Add
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-subtitle>Send Message</mat-card-subtitle>
+          <mat-card-content>
+            <form
+              [formGroup]="sendMessageForm"
+              (ngSubmit)="sendMessage()"
+              class="col"
+            >
+              <mat-form-field appearance="fill">
+                <mat-label>Event name</mat-label>
+                <input matInput formControlName="eventName" />
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Message</mat-label>
+                <input matInput formControlName="message" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">
+                Send
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </section>
     </mat-card-content>
   </mat-card>
 </div>

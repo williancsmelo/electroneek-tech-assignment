@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   OnInit
 } from '@angular/core'
 import { ApiService } from 'src/app/services/api.service'
+import { WebSocketService } from 'src/app/services/web-socket.service'
 
 @Component({
   selector: 'app-console-logs',
@@ -14,17 +14,23 @@ import { ApiService } from 'src/app/services/api.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsoleLogsComponent implements OnInit {
-  @Input() messages: string[] = []
+  messages: string[] = []
 
   constructor(
     private readonly apiService: ApiService,
+    private readonly webSocketService: WebSocketService,
     private cdr: ChangeDetectorRef
-  ) {
-    this.apiService.logs$.subscribe(message => {
+  ) {}
+
+  ngOnInit() {
+    this.apiService.log$.subscribe(message => {
+      this.messages = [...this.messages, message]
+      this.cdr.detectChanges()
+    })
+
+    this.webSocketService.messages$.subscribe(message => {
       this.messages = [...this.messages, message]
       this.cdr.detectChanges()
     })
   }
-
-  ngOnInit() {}
 }

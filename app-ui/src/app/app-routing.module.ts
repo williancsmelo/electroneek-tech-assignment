@@ -1,16 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { HomeComponent } from './components/home/home.component'
+import { WebSocketService } from './services/web-socket.service'
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-  },
-];
+    component: HomeComponent
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [WebSocketService]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
