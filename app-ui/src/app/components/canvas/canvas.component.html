@@ -42,7 +42,12 @@
                 <mat-label>Event name</mat-label>
                 <input matInput formControlName="eventName" />
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="!webSocketService.isConnected"
+              >
                 Add
               </button>
             </form>

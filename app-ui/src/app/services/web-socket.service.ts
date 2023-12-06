@@ -25,7 +25,8 @@ export class WebSocketService {
   }
 
   listen(eventName: string) {
-    if (this.eventsSubject.value.includes(eventName)) return
+    if (this.eventsSubject.value.includes(eventName) || !this.isConnected)
+      return
     this.eventsSubject.next([...this.eventsSubject.value, eventName])
     this.socket.on(eventName, (data: string) => {
       const time = new Date().toTimeString().split(' ').shift()
